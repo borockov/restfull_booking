@@ -1,10 +1,9 @@
 from functools import lru_cache
 from httpx import Client
-from pydantic import BaseModel
 from clients.authentications.authentication_client import get_authentication_client
 from clients.authentications.token_schema import CreateTokenRequestSchema
 
-
+@lru_cache(maxsize=None)
 def get_private_http_builder() -> Client:
     authentication_client = get_authentication_client()
 
