@@ -41,5 +41,9 @@ class UpdateBoookingRequestSchema(BaseModel):
 
 
 class UpdateResponseBookingSchema(BaseModel):
-    booking: BookingSchema
-
+    first_name: str = Field(alias="firstname")
+    lastname: str = Field(alias="lastname")
+    total_price: int = Field(alias="totalprice")
+    deposit_paid: bool = Field(alias="depositpaid")
+    booking_dates: Dates = Field(alias="bookingdates")
+    additional_needs: str = Field(alias="additionalneeds")
