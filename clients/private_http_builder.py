@@ -2,6 +2,8 @@ from functools import lru_cache
 from httpx import Client
 from clients.authentications.authentication_client import get_authentication_client
 from clients.authentications.token_schema import CreateTokenRequestSchema
+from clients.event_hooks import curl_event_hook
+
 
 @lru_cache(maxsize=None)
 def get_private_http_builder() -> Client:
@@ -15,6 +17,7 @@ def get_private_http_builder() -> Client:
         timeout=100,
         base_url="https://restful-booker.herokuapp.com",
         headers={"Content-Type": "application/json", "Accept": "application/json"},
-        cookies={"token": login_response_data['token']}
+        cookies={"token": login_response_data['token']},
+        event_hooks={"request": [curl_event_hook]}
     )
 

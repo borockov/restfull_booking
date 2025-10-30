@@ -1,4 +1,6 @@
+import allure
 
+@allure.step("Check status code equals to {expected}")
 def assert_status_code(actual: int, expected: int):
     """
     Проверяет, что фактический статус-код ответа соответствует ожидаемому

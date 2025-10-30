@@ -4,10 +4,11 @@ from clients.api_client import APIClient
 from clients.booking.booking_schema import CreateBookingRequestSchema, CreateBookingResponseSchema, \
     UpdateBoookingRequestSchema, UpdateResponseBookingSchema
 from clients.private_http_builder import get_private_http_builder
+import allure
 
 
 class PrivateBookingClient(APIClient):
-
+    @allure.step("Update Booking by {booking_id}")
     def update_booking_api(self, booking_id: str, request: UpdateBoookingRequestSchema) -> Response:
         return self.put(f"/booking/{booking_id}", json=request.model_dump(by_alias=True))
 
@@ -15,6 +16,7 @@ class PrivateBookingClient(APIClient):
         response = self.update_booking_api(booking_id, request)
         return UpdateResponseBookingSchema.model_validate_json(response.text)
 
+    @allure.step("Part Update by {booking_id}")
     def partial_update_booking_api(self, booking_id: str, request: UpdateBoookingRequestSchema) -> Response:
         return self.put(f"/booking/{booking_id}", json=request.model_dump(by_alias=True))
 
@@ -23,6 +25,7 @@ class PrivateBookingClient(APIClient):
         response = self.partial_update_booking_api(booking_id, request)
         return UpdateResponseBookingSchema.model_validate_json(response.text)
 
+    @allure.step("Delete Booking by {booking_id}")
     def delete_booking(self, booking_id: str) -> Response:
         return self.delete(f"/booking/{booking_id}")
 
