@@ -25,6 +25,11 @@ class TestBooking:
     @allure.story(AllureStories.GET_ENTITIES)
     @allure.severity(Severity.MINOR)
     def test_get_booking(self, public_client):
+        """
+        Тест на получение идентификаторов всех бронирований
+        :param public_client:
+        :return:
+        """
         get_booking = public_client.get_booking_ids_api()
         assert_status_code(get_booking.status_code, HTTPStatus.OK)
 
@@ -33,6 +38,11 @@ class TestBooking:
     @allure.story(AllureStories.GET_ENTITY)
     @allure.severity(Severity.MINOR)
     def test_get_booking_id(self, public_client):
+        """
+        Тест на получение идентификатора конкретного бронирования
+        :param public_client:
+        :return:
+        """
         get_booking = public_client.get_booking_ids_api()
         get_booking_id = public_client.get_booking(get_booking.json()[0]['bookingid'])
 
@@ -44,6 +54,12 @@ class TestBooking:
     @allure.story(AllureStories.CREATE_ENTITY)
     @allure.severity(Severity.CRITICAL)
     def test_create_booking(self, public_client, create_booking_request):
+        """
+        Тест на создания бронирования
+        :param public_client:
+        :param create_booking_request:
+        :return:
+        """
         create_booking_response = public_client.create_booking_api(create_booking_request)
         create_booking_response_data = CreateBookingResponseSchema.model_validate_json(create_booking_response.text)
 
@@ -55,6 +71,14 @@ class TestBooking:
     @allure.story(AllureStories.UPDATE_ENTITY)
     @allure.severity(Severity.CRITICAL)
     def test_update_booking(self, public_client, private_client, update_booking_request, existing_booking_id):
+        """
+        Тест на обновление бронирования
+        :param public_client:
+        :param private_client:
+        :param update_booking_request:
+        :param existing_booking_id:
+        :return:
+        """
         update_booking_response = private_client.update_booking_api(existing_booking_id,
                                                                     update_booking_request)
         update_booking_response_data = UpdateResponseBookingSchema.model_validate_json(update_booking_response.text)
@@ -76,6 +100,7 @@ class TestBooking:
     @allure.story(AllureStories.UPDATE_ENTITY)
     @allure.severity(Severity.CRITICAL)
     def test_update_patch_booking(self, private_client, public_client, firstname, lastname):
+        """Тест на частичное обновление"""
         get_booking = public_client.get_booking_ids_api()
 
         update_booking_patch_request = UpdateBoookingRequestSchema(
@@ -97,6 +122,12 @@ class TestBooking:
     @allure.story(AllureStories.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     def test_delete_booking(self, public_client, private_client):
+        """
+        Тест на удаление бронирования
+        :param public_client:
+        :param private_client:
+        :return:
+        """
         get_booking = public_client.get_booking_ids_api()
 
         delete_booking = private_client.delete_booking(get_booking.json()[0]['bookingid'])

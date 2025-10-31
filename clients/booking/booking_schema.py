@@ -4,11 +4,17 @@ from pydantic import BaseModel, Field
 from tools.fakers import fake
 
 class Dates(BaseModel):
+    """
+    JSON схема для даты бронирования
+    """
     check_in: str = Field(alias="checkin", default='2018-09-09')
     check_out: str = Field(alias="checkout", default='2019-09-09')
 
 
 class BookingSchema(BaseModel):
+    """
+    json схема, модель бронирования
+    """
     first_name: str = Field(alias="firstname")
     lastname: str = Field(alias="lastname")
     total_price: int = Field(alias="totalprice")
@@ -18,6 +24,9 @@ class BookingSchema(BaseModel):
 
 
 class CreateBookingRequestSchema(BaseModel):
+    """
+    json схема, модель для запроса на создания бронирования
+    """
     first_name: str = Field(alias="firstname", default_factory=fake.first_name)
     lastname: str = Field(alias="lastname", default_factory=fake.last_name)
     total_price: int = Field(alias="totalprice", default_factory=fake.integer)
@@ -27,11 +36,17 @@ class CreateBookingRequestSchema(BaseModel):
 
 
 class CreateBookingResponseSchema(BaseModel):
+    """
+    json схема, модель ответа после успешного бронирования
+    """
     booking_id: int = Field(alias="bookingid")
     booking: CreateBookingRequestSchema
 
 
 class UpdateBoookingRequestSchema(BaseModel):
+    """
+    json схема, модель для обновления бронирования номера
+    """
     first_name: str | None = Field(alias="firstname", default_factory=fake.first_name)
     lastname: str | None = Field(alias="lastname", default_factory=fake.last_name)
     total_price: int | None = Field(alias="totalprice", default_factory=fake.integer)
@@ -41,6 +56,9 @@ class UpdateBoookingRequestSchema(BaseModel):
 
 
 class UpdateResponseBookingSchema(BaseModel):
+    """
+    json схема, модель ответа на обновление бронировани номера
+    """
     first_name: str = Field(alias="firstname")
     lastname: str = Field(alias="lastname")
     total_price: int = Field(alias="totalprice")

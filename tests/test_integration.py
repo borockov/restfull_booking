@@ -18,6 +18,14 @@ class TestIntegration:
     @allure.tag("integrations", "regressions")
     @allure.story(AllureStories.CREATE_ENTITY)
     def test_booking_full_flow(self, public_client, private_client, create_booking_request, booking_id):
+        """
+        Полный цикл теста, содания,обновления,удаление
+        :param public_client:
+        :param private_client:
+        :param create_booking_request:
+        :param booking_id:
+        :return:
+        """
         update_request = UpdateBoookingRequestSchema(firstname="Updated", lastname="User")
         update_response = private_client.partial_update_booking_api(booking_id, update_request)
 

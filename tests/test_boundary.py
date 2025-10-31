@@ -24,17 +24,13 @@ class TestBoundary:
         ids=['zero_price', "min_price", "max_price"]
     )
     def test_create_booking_with_boundary_price(self, public_client, total_price, create_booking_request):
-        create_request = {
-            "firstname": "Flow",
-            "lastname": "Test",
-            "totalprice": 500,
-            "depositpaid": True,
-            "bookingdates": {
-                "checkin": "2025-01-01",
-                "checkout": "2025-01-10"
-            },
-            "additionalneeds": "Lunch"
-        }
+        """
+        Тест по граничным значения
+        :param public_client: фикстура публичный клиент
+        :param total_price: параметризация фикстур
+        :param create_booking_request:  фикстура для запроса на создания бронирования
+        :return:
+        """
         response = public_client.create_booking_api(request=create_booking_request)
         response_data = CreateBookingResponseSchema.model_validate_json(response.text)
         validate_json_schema(response.json(), response_data.model_json_schema())

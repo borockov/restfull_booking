@@ -1,4 +1,7 @@
 import allure
+from tools.logger import get_logger
+
+logger = get_logger("BASE_ASSERTIONS")
 
 @allure.step("Check status code equals to {expected}")
 def assert_status_code(actual: int, expected: int):
@@ -9,7 +12,7 @@ def assert_status_code(actual: int, expected: int):
     :param expected: Ожидаемый статус код.
     raise AssertionError: Если статус-коды не совпадают.
     """
-    # logger.info(f"Check that response status code equals to {expected}")
+    logger.info(f"Check that response status code equals to {expected}")
     assert actual == expected, (
         'Неккоректный статус код'
         f'Ожидаемый статус {expected}'

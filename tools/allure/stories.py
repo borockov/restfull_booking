@@ -1,5 +1,8 @@
 from enum import Enum
 
+"""
+Описываем в ENUM стори (конкретные пользовательские сценарии)
+"""
 
 class AllureStories(str, Enum):
     LOGIN = "Login"
